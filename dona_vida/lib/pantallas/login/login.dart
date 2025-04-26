@@ -1,3 +1,5 @@
+import 'package:dona_vida/pantallas/login/registro.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -14,10 +16,18 @@ class _LoginPageState extends State<LoginPage> {
 
   void _loginWithEmailAndPassword() {
     if (_formKey.currentState!.validate()) {
-      // Implement your login logic here
-      String username = _usernameController.text;
-      String password = _passwordController.text;
-      print('Username: $username, Password: $password');
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: _usernameController.text,
+        password: _passwordController.text,
+      )
+          .then((userCredential) {
+        // Implement your login logic here
+        print('Login successful: ${userCredential.user?.email}');
+        Navigator.pushReplacementNamed(context, '/menu'); // Navigate to menu
+      }).catchError((error) {
+        print('Login failed: $error');
+      });
     }
   }
 
@@ -34,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Inicio de sesion')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -43,21 +53,21 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               TextFormField(
                 controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Username'),
+                decoration: InputDecoration(labelText: 'Email'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
+                    return 'Por favor ingrese su correo electronico';
                   }
                   return null;
                 },
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Por favor ingrese su contraseña';
                   }
                   return null;
                 },
@@ -65,13 +75,23 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _loginWithEmailAndPassword,
-                child: Text('Login'),
+                child: Text('Iniciar sesion'),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _loginWithGoogle,
                 child: Text('Login with Google'),
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return Registro();
+                      },
+                    ));
+                  },
+                  child: Text('Registrarse')),
             ],
           ),
         ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994542157462",
+    "project_id": "donavida-1db14",
+    "storage_bucket": "donavida-1db14.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994542157462:android:02eef1ab6670ed9c960cb7",
+        "android_client_info": {
+          "package_name": "com.example.dona_vida"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRz9-W_OM3P-flpGzN6occ5Tteecta5ow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
