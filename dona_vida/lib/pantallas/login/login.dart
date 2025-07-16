@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -11,13 +14,28 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void _loginWithEmailAndPassword() {
+  Future<void> _loginWithEmailAndPassword() async {
     if (_formKey.currentState!.validate()) {
-      // Implement your login logic here
-      String username = _usernameController.text;
+      // Asumimos que el campo 'username' se usa para el email
+      String email = _usernameController.text.trim();
       String password = _passwordController.text;
-      print('Username: $username, Password: $password');
+      try {
+        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        print(
+          'Inicio de sesión con Email/Password exitoso: ${userCredential.user?.email}',
+        );
+        // Aquí puedes navegar a otra pantalla o mostrar un mensaje de éxito
+      } on FirebaseAuthException catch (e) {
+        print('Error en el inicio de sesión con Email/Password: ${e.message}');
+        // Aquí puedes mostrar un mensaje de error al usuario
+      } catch (e) {
+        print('Ocurrió un error inesperado: $e');
+      }
     }
   }
 
