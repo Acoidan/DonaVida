@@ -1,0 +1,39 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "donavida-1db14",
+          "appId": "1:994542157462:android:02eef1ab6670ed9c960cb7",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "donavida-1db14",
+          "configurations": {
+            "android": "1:994542157462:android:02eef1ab6670ed9c960cb7",
+            "ios": "1:994542157462:ios:ca401f64b371cdd1960cb7",
+            "macos": "1:994542157462:ios:ca401f64b371cdd1960cb7",
+            "web": "1:994542157462:web:46b861ed71cd477c960cb7",
+            "windows": "1:994542157462:web:c8083d12e3dc051c960cb7"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "y",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
